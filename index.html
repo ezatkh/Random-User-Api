@@ -13,22 +13,63 @@
 
 <body>
     <div class="container">	
-        <div class="user-container"></div>	
+        <div class="user-container"></div>
+
         <div class="quote-container"></div>	
+
         <div class="content-container">	
             <div class="pokemon-container"></div>	
             <div class="meat-container"></div>	
         </div>	
+
         <div class="friends">	
             <h4>Friends</h4>	
             <div class="friends-container">	
             </div>	
         </div>	
+
         <div class="buttons">	
-            <button>Load User Data</button>	
-            <button>Display User</button>	
+            <button id="load">Load User Data</button>	
+            <button id="display">Display User</button>	
         </div>	
     </div>
+<script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+<script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+
+<script type="text/x-handlebars-template" id="friends-template">
+    {{#each data}}
+    <div class="friend">
+        {{firstName}} {{lastName}}
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="users-template">
+    <img  id="profile-pic" src="{{image}}">
+    <div class="user-info" id="users">
+       <h3> {{firstName}} {{lastName}}</h3>
+      <h3>  {{city}} , {{state}}</h3>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="quote-template">
+<p >Favourite quote : </p>
+<h3 >{{data}}</h3>
+</script>
+
+<script type="text/x-handlebars-template" id="pokemon-template">
+    <img src="{{image}}">
+    <h3>Favourite Pokemon: {{name}}</h3>
+    </script>
+
+    <script type="text/x-handlebars-template" id="bacon-template">
+        <h3>About me:</h3>
+        <p>{{data}}</p>
+        </script>
+
+<script src="APIManager.js"></script>
+<script src="Renderer.js"></script>
+<script src="main.js"></script>
 </body>
 
 </html>
