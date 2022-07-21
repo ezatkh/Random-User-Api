@@ -39,4 +39,9 @@ class Renderer {
     const idAppendDiv = ".meat-container";
     handleTemplate(idTemplateScript, bacon, idAppendDiv);
   }
+  dropDownRender(usersSaved) {
+    const idTemplateScript = "#list-template";
+    const idAppendDiv = "#option";
+    handleTemplate(idTemplateScript, usersSaved, idAppendDiv);
+  }
 }

@@ -42,8 +42,9 @@ class APIManager {
       method: "GET",
       url: `https://pokeapi.co/api/v2/pokemon/${random}/`,
       success: (pokemom) => {
+        const proper = pokemom.name[0].toUpperCase() + pokemom.name.slice(1);
         const pokemonObject = {
-          name: pokemom.name,
+          name: proper,
           image: pokemom.sprites.front_default,
         };
         this.data.pokemon = pokemonObject;
