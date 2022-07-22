@@ -7,6 +7,7 @@ $("#load").click(function () {
   api.getQuoteData();
   api.getBacoData();
 });
+
 $("#display").click(function () {
   let friendsInfo = api.getData().friends;
   rend.friendsRender(friendsInfo);
@@ -23,6 +24,7 @@ $("#display").click(function () {
   let bacoInfo = api.getData().bacon;
   rend.paconRender(bacoInfo);
 });
+
 $("#saveUser").click(function () {
   let userSnapshot = {
     user: api.getData().users,
@@ -39,34 +41,45 @@ $("#saveUser").click(function () {
     getlocalStorageUsers.push(userSnapshot);
     localStorage.setItem("profileUser", JSON.stringify(getlocalStorageUsers));
   }
-  rend.dropDownRender(getlocalStorageUsers);
-  $(".dropdown-content").css("display", "block");
 });
 $("#loadUser").click(function () {
   const profileUser = JSON.parse(localStorage.getItem("profileUser"));
-  if (profileUser == null) alert("No users saved to show ..!");
-  else {
+  if (profileUser == null) {
+    alert("No users saved to show ..!");
+    $(".dropdown-content").css("display", "none");
+  } else {
     let getlocalStorageUsers =
       JSON.parse(localStorage.getItem("profileUser")) || [];
-
-    let selected = $("#option").val();
-
-    getlocalStorageUsers.forEach((userProfile) => {
-      let fullName =
-        userProfile.user.firstName + " " + userProfile.user.lastName;
-      if (fullName == selected) {
-        rend.friendsRender(userProfile.friends);
-        rend.userRender(userProfile.user);
-        rend.quoteRender(userProfile.quote);
-        rend.pokemonRender(userProfile.pokemon);
-        rend.paconRender(userProfile.usbaconer);
-      }
-    });
+    rend.dropDownRender(getlocalStorageUsers);
+    $(".dropdown-content").css("display", "block");
   }
 });
+
 $("#clearUsers").click(function () {
   let getlocalStorageUsers =
     JSON.parse(localStorage.getItem("profileUser")) || [];
   localStorage.removeItem("profileUser");
   rend.dropDownRender(getlocalStorageUsers);
+});
+
+$(document).click(function (event) {
+  if (!(event.target.id == "loadUser" || event.target.id === "option"))
+    $(".dropdown-content").css("display", "none");
+});
+
+$("#option").on("change", function () {
+  let selected = $("#option :selected").val();
+  let getlocalStorageUsers =
+    JSON.parse(localStorage.getItem("profileUser")) || [];
+
+  getlocalStorageUsers.forEach((userProfile) => {
+    let fullName = userProfile.user.firstName + " " + userProfile.user.lastName;
+    if (fullName == selected) {
+      rend.friendsRender(userProfile.friends);
+      rend.userRender(userProfile.user);
+      rend.quoteRender(userProfile.quote);
+      rend.pokemonRender(userProfile.pokemon);
+      rend.paconRender(userProfile.usbaconer);
+    }
+  });
 });
